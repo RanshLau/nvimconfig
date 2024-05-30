@@ -10,10 +10,9 @@ ui["akinsho/bufferline.nvim"] = {
 	event = { "BufReadPost", "BufAdd", "BufNewFile" },
 	config = require("ui.bufferline"),
 }
-ui["sainnhe/gruvbox-material"] = {
+ui["ellisonleao/gruvbox.nvim"] = {
 	lazy = false,
 	name = "gruvbox",
-	branch = "main",
 	config = require("ui.gruvbox"),
 }
 ui["j-hui/fidget.nvim"] = {
