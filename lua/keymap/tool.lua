@@ -58,6 +58,7 @@ local plug_map = {
     ["n|<leader>lL"] = map_cr("TroubleToggle loclist"):with_noremap():with_silent():with_desc("lsp: Show loclist"),
 
     -- Plugin: telescope
+    ["n|<leader>,"] = map_cu("Telescope buffers sort_mru=true sort_lastused=true"):with_noremap():with_silent():with_desc("Switch Buffer"),
     ["n|<leader>sk"] = map_callback(function()
         _command_panel()
     end):with_noremap():with_silent():with_desc("tool: Toggle command panel"),

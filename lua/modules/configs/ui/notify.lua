@@ -18,9 +18,9 @@ return function()
 		---@usage timeout for notifications in ms, default 5000
 		timeout = 2000,
 		-- @usage User render fps value
-		fps = 20,
+		fps = 60,
 		-- Render function for notifications. See notify-render()
-		render = "default",
+		render = "wrapped-compact",
 		---@usage highlight behind the window for stages that change opacity
 		background_colour = "NotifyBackground",
 		---@usage minimum width for notification windows

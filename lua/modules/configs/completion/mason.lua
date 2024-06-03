@@ -2,9 +2,9 @@ local M = {}
 
 M.setup = function()
 	local is_windows = require("core.global").is_windows
-
 	local mason_registry = require("mason-registry")
-	require("lspconfig.ui.windows").default_options.border = "rounded"
+
+	require("lspconfig.ui.windows").default_options.border = "single"
 
 	local icons = {
 		ui = require("modules.utils.icons").get("ui", true),

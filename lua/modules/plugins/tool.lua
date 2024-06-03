@@ -68,7 +68,7 @@ tool["gelguy/wilder.nvim"] = {
 --                        Telescope Plugins                         --
 ----------------------------------------------------------------------
 tool["nvim-telescope/telescope.nvim"] = {
-	lazy = true,
+	lazy = false,
 	cmd = "Telescope",
 	config = require("tool.telescope"),
 	dependencies = {
