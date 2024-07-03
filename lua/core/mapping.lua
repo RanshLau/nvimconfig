@@ -16,10 +16,10 @@ local core_map = {
     ["n|<Esc>"] = map_callback(function()
         _flash_esc_or_noh()
     end):with_noremap():with_silent():with_desc("edit: Clear search highlight"),
-    ["n|<C-h>"] = map_cmd("<C-w>h"):with_noremap():with_desc("window: Focus left"),
-    ["n|<C-l>"] = map_cmd("<C-w>l"):with_noremap():with_desc("window: Focus right"),
-    ["n|<C-j>"] = map_cmd("<C-w>j"):with_noremap():with_desc("window: Focus down"),
-    ["n|<C-k>"] = map_cmd("<C-w>k"):with_noremap():with_desc("window: Focus up"),
+    ["n|<C-h>"] = map_cmd("<C-w>h"):with_silent():with_noremap():with_desc("window: Focus left"),
+    ["n|<C-l>"] = map_cmd("<C-w>l"):with_silent():with_noremap():with_desc("window: Focus right"),
+    ["n|<C-j>"] = map_cmd("<C-w>j"):with_silent():with_noremap():with_desc("window: Focus down"),
+    ["n|<C-k>"] = map_cmd("<C-w>k"):with_silent():with_noremap():with_desc("window: Focus up"),
     ["t|<C-h>"] = map_cmd("<Cmd>wincmd h<CR>"):with_silent():with_noremap():with_desc("window: Focus left"),
     ["t|<C-l>"] = map_cmd("<Cmd>wincmd l<CR>"):with_silent():with_noremap():with_desc("window: Focus right"),
     ["t|<C-j>"] = map_cmd("<Cmd>wincmd j<CR>"):with_silent():with_noremap():with_desc("window: Focus down"),

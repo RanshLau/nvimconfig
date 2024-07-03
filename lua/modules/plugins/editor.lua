@@ -124,4 +124,14 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 	},
 }
 
+-- editor["utilyre/barbecue.nvim"] = {
+-- 	lazy = true,
+-- 	event = { "CursorHold", "CursorHoldI" },
+-- 	config = require("editor.barbecue"),
+-- 	dependencies = {
+-- 		{ "SmiteshP/nvim-navic" },
+-- 		{ "nvim-tree/nvim-web-devicons" },
+-- 	}
+-- }
+
 return editor

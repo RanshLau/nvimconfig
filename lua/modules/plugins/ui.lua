@@ -29,7 +29,7 @@ ui["akinsho/bufferline.nvim"] = {
     event = {"BufReadPost", "BufAdd", "BufNewFile"},
     config = require("ui.bufferline")
 }
-ui["ellisonleao/gruvbox.nvim"] = {
+ui["RanshLau/gruvbox.nvim"] = {
     lazy = false,
     name = "gruvbox",
     config = require("ui.gruvbox")
@@ -83,6 +83,11 @@ ui["echasnovski/mini.indentscope"] = {
             end
         })
     end
+}
+ui["b0o/incline.nvim"] = {
+    lazy = true,
+    event = {"CursorHold", "CursorHoldI"},
+    config = require("ui.incline")
 }
 
 return ui

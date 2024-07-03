@@ -108,21 +108,6 @@ settings["lsp_deps"] = {
 	"gopls",
 }
 
--- Set the general-purpose servers that will be installed during bootstrap here.
--- Check the below link for all supported sources.
--- in `code_actions`, `completion`, `diagnostics`, `formatting`, `hover` folders:
--- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins
----@type string[]
-settings["null_ls_deps"] = {
-	"clang_format",
-	"gofumpt",
-	"goimports",
-	"prettier",
-	"shfmt",
-	"stylua",
-	"vint",
-}
-
 -- Set the Debug Adapter Protocol (DAP) clients that will be installed and configured during bootstrap here.
 -- Check the below link for all supported DAPs:
 -- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
@@ -173,11 +158,7 @@ settings["gui_config"] = {
 -- Check the below link for all supported entries:
 -- https://neovide.dev/configuration.html
 ---@type table<string, boolean|number|string>
-settings["neovide_config"] = {
-	cursor_vfx_particle_speed = 20.0,
-	cursor_vfx_particle_density = 5.0,
-	cursor_vfx_particle_lifetime = 1.2,
-}
+settings["neovide_config"] = {}
 
 -- Set the dashboard startup image here
 -- You can generate the ascii image using: https://github.com/TheZoraiz/ascii-image-converter

@@ -6,7 +6,7 @@ M.setup = function()
 
 	local nvim_lsp = require("lspconfig")
 	local mason_lspconfig = require("mason-lspconfig")
-	require("lspconfig.ui.windows").default_options.border = "rounded"
+	require("lspconfig.ui.windows").default_options.border = "single"
 
 	require("modules.utils").load_plugin("mason-lspconfig", {
 		ensure_installed = require("core.settings").lsp_deps,

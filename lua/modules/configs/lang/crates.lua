@@ -34,7 +34,7 @@ return function()
 			hide_on_select = true,
 			copy_register = '"',
 			style = "minimal",
-			border = "rounded",
+			border = "single",
 			show_version_date = true,
 			show_dependency_version = true,
 			max_height = 30,

@@ -1,6 +1,6 @@
 return function()
     require("modules.utils").load_plugin("mini.indentscope", {
-        symbol = "|",
+        symbol = "▏",
         options = {
             try_as_border = true
         }

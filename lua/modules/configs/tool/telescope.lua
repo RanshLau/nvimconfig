@@ -52,6 +52,7 @@ return function()
 			file_sorter = require("telescope.sorters").get_fuzzy_file,
 			generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
 			buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+			borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
 		},
 		extensions = {
 			aerial = {

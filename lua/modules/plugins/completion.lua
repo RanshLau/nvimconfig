@@ -7,8 +7,8 @@ completion["neovim/nvim-lspconfig"] = {
 	config = require("completion.lsp"),
 	dependencies = {
 		{ "williamboman/mason.nvim" },
-		{ "williamboman/mason-lspconfig.nvim" },
 		{ "folke/neoconf.nvim" },
+		{ "yioneko/nvim-vtsls" },
 		{
 			"Jint-lzxy/lsp_signature.nvim",
 			config = require("completion.lsp-signature"),
@@ -35,14 +35,10 @@ completion["joechrisellis/lsp-format-modifications.nvim"] = {
 	lazy = true,
 	event = "LspAttach",
 }
-completion["nvimtools/none-ls.nvim"] = {
+completion["mfussenegger/nvim-lint"] = {
 	lazy = true,
 	event = { "CursorHold", "CursorHoldI" },
-	config = require("completion.null-ls"),
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"jay-babu/mason-null-ls.nvim",
-	},
+	config = require("completion.nvim-lint"),
 }
 completion["hrsh7th/nvim-cmp"] = {
 	lazy = true,

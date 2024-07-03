@@ -28,6 +28,10 @@ return function()
 		winbar = { enable = true },
 		mappings = {
 			list = {
+				["<C-j>"] = actions.close,
+				["<C-k>"] = actions.close,
+				["<C-h>"] = actions.close,
+				["<C-l>"] = actions.close,
 				["k"] = actions.previous,
 				["j"] = actions.next,
 				["<Up>"] = actions.previous,

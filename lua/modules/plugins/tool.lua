@@ -63,6 +63,11 @@ tool["gelguy/wilder.nvim"] = {
 	config = require("tool.wilder"),
 	dependencies = { "romgrk/fzy-lua-native" },
 }
+tool["max397574/better-escape.nvim"] = {
+	lazy = true,
+	event = { "CursorHold", "CursorHoldI" },
+	config = require("tool.better-escape"),
+}
 
 ----------------------------------------------------------------------
 --                        Telescope Plugins                         --
