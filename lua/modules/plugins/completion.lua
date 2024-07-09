@@ -2,88 +2,148 @@ local completion = {}
 local use_copilot = require("core.settings").use_copilot
 
 completion["neovim/nvim-lspconfig"] = {
-	lazy = true,
-	event = { "CursorHold", "CursorHoldI" },
-	config = require("completion.lsp"),
-	dependencies = {
-		{ "williamboman/mason.nvim" },
-		{ "folke/neoconf.nvim" },
-		{ "yioneko/nvim-vtsls" },
-		{
-			"Jint-lzxy/lsp_signature.nvim",
-			config = require("completion.lsp-signature"),
-		},
-	},
+  lazy = true,
+  event = {
+    "CursorHold",
+    "CursorHoldI"
+  },
+  config = require("completion.lsp"),
+  dependencies = {
+    {
+      "williamboman/mason.nvim"
+    },
+    {
+      "williamboman/mason-lspconfig.nvim"
+    },
+    {
+      "folke/neoconf.nvim"
+    },
+    {
+      "Jint-lzxy/lsp_signature.nvim",
+      config = require("completion.lsp-signature")
+    }
+  }
+}
+completion["williamboman/mason.nvim"] = {
+  lazy = true,
+  cmd = "Mason",
+  build = ":MasonUpdate",
+  opts_extend = {
+    "ensure_installed"
+  },
+  config = require("completion.mason")
 }
 completion["nvimdev/lspsaga.nvim"] = {
-	lazy = true,
-	event = "LspAttach",
-	config = require("completion.lspsaga"),
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+  lazy = true,
+  event = "LspAttach",
+  config = require("completion.lspsaga"),
+  dependencies = {
+    "nvim-tree/nvim-web-devicons"
+  }
 }
 completion["stevearc/aerial.nvim"] = {
-	lazy = true,
-	event = "LspAttach",
-	config = require("completion.aerial"),
+  lazy = true,
+  event = "LspAttach",
+  config = require("completion.aerial")
 }
 completion["dnlhc/glance.nvim"] = {
-	lazy = true,
-	event = "LspAttach",
-	config = require("completion.glance"),
+  lazy = true,
+  event = "LspAttach",
+  config = require("completion.glance")
 }
 completion["joechrisellis/lsp-format-modifications.nvim"] = {
-	lazy = true,
-	event = "LspAttach",
+  lazy = true,
+  event = "LspAttach"
 }
 completion["mfussenegger/nvim-lint"] = {
-	lazy = true,
-	event = { "CursorHold", "CursorHoldI" },
-	config = require("completion.nvim-lint"),
+  lazy = true,
+  event = {
+    "CursorHold",
+    "CursorHoldI"
+  },
+  config = require("completion.nvim-lint")
+}
+completion["stevearc/conform.nvim"] = {
+  lazy = true,
+  event = {
+    "CursorHold",
+    "CursorHoldI"
+  },
+  cmd = "ConformInfo",
+  opts = require("completion.formatting").opts,
+  init = require("completion.formatting").init,
+  config = require("completion.formatting").setup,
+  dependencies = {
+    "mason.nvim"
+  }
 }
 completion["hrsh7th/nvim-cmp"] = {
-	lazy = true,
-	event = "InsertEnter",
-	config = require("completion.cmp"),
-	dependencies = {
-		{
-			"L3MON4D3/LuaSnip",
-			dependencies = { "rafamadriz/friendly-snippets" },
-			config = require("completion.luasnip"),
-		},
-		{ "lukas-reineke/cmp-under-comparator" },
-		{ "saadparwaiz1/cmp_luasnip" },
-		{ "hrsh7th/cmp-nvim-lsp" },
-		{ "hrsh7th/cmp-nvim-lua" },
-		{ "andersevenrud/cmp-tmux" },
-		{ "hrsh7th/cmp-path" },
-		{ "f3fora/cmp-spell" },
-		{ "hrsh7th/cmp-buffer" },
-		{ "kdheepak/cmp-latex-symbols" },
-		{ "ray-x/cmp-treesitter", commit = "c8e3a74" },
-		-- { "tzachar/cmp-tabnine", build = "./install.sh", config = require("completion.tabnine") },
-		-- {
-		-- 	"jcdickinson/codeium.nvim",
-		-- 	dependencies = {
-		-- 		"nvim-lua/plenary.nvim",
-		-- 		"MunifTanjim/nui.nvim",
-		-- 	},
-		-- 	config = require("completion.codeium"),
-		-- },
-	},
+  lazy = true,
+  event = "InsertEnter",
+  config = require("completion.cmp"),
+  dependencies = {
+    {
+      "L3MON4D3/LuaSnip",
+      dependencies = {
+        "rafamadriz/friendly-snippets"
+      },
+      config = require("completion.luasnip")
+    },
+    {
+      "lukas-reineke/cmp-under-comparator"
+    },
+    {
+      "saadparwaiz1/cmp_luasnip"
+    },
+    {
+      "hrsh7th/cmp-nvim-lsp"
+    },
+    {
+      "hrsh7th/cmp-nvim-lua"
+    },
+    {
+      "andersevenrud/cmp-tmux"
+    },
+    {
+      "hrsh7th/cmp-path"
+    },
+    {
+      "f3fora/cmp-spell"
+    },
+    {
+      "hrsh7th/cmp-buffer"
+    },
+    {
+      "kdheepak/cmp-latex-symbols"
+    },
+    {
+      "ray-x/cmp-treesitter",
+      commit = "c8e3a74"
+    }
+    -- { "tzachar/cmp-tabnine", build = "./install.sh", config = require("completion.tabnine") },
+    -- {
+    -- 	"jcdickinson/codeium.nvim",
+    -- 	dependencies = {
+    -- 		"nvim-lua/plenary.nvim",
+    -- 		"MunifTanjim/nui.nvim",
+    -- 	},
+    -- 	config = require("completion.codeium"),
+    -- },
+  }
 }
 if use_copilot then
-	completion["zbirenbaum/copilot.lua"] = {
-		lazy = true,
-		cmd = "Copilot",
-		event = "InsertEnter",
-		config = require("completion.copilot"),
-		dependencies = {
-			{
-				"zbirenbaum/copilot-cmp",
-				config = require("completion.copilot-cmp"),
-			},
-		},
-	}
+  completion["zbirenbaum/copilot.lua"] = {
+    lazy = true,
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = require("completion.copilot"),
+    dependencies = {
+      {
+        "zbirenbaum/copilot-cmp",
+        config = require("completion.copilot-cmp")
+      }
+    }
+  }
 end
 
 return completion

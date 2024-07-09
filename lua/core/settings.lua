@@ -29,8 +29,8 @@ settings["format_modifications_only"] = false
 --- NOTE: Directories are automatically normalized. |vim.fs.normalize()|
 ---@type string[]
 settings["format_disabled_dirs"] = {
-	-- Example
-	"~/format_disabled_dir",
+  -- Example
+  "~/format_disabled_dir"
 }
 
 -- Set it to false if diagnostics virtual text is annoying.
@@ -83,15 +83,15 @@ settings["external_browser"] = "chrome-cli open"
 -- Filetypes in this list will skip lsp formatting if rhs is true.
 ---@type table<string, boolean>
 settings["formatter_block_list"] = {
-	lua = false, -- example
+  lua = false -- example
 }
 
 -- Servers in this list will skip setting formatting capabilities if rhs is true.
 ---@type table<string, boolean>
 settings["server_formatting_block_list"] = {
-	lua_ls = true,
-	tsserver = true,
-	clangd = true,
+  lua_ls = true,
+  tsserver = true,
+  clangd = true
 }
 
 -- Set the language servers that will be installed during bootstrap here.
@@ -99,13 +99,13 @@ settings["server_formatting_block_list"] = {
 -- https://github.com/neovim/nvim-lspconfig/tree/master/lua/lspconfig/server_configurations
 ---@type string[]
 settings["lsp_deps"] = {
-	"bashls",
-	"clangd",
-	"html",
-	"jsonls",
-	"lua_ls",
-	"pylsp",
-	"gopls",
+  "bashls",
+  "clangd",
+  "html",
+  "jsonls",
+  "lua_ls",
+  "pylsp",
+  "gopls"
 }
 
 -- Set the Debug Adapter Protocol (DAP) clients that will be installed and configured during bootstrap here.
@@ -113,9 +113,9 @@ settings["lsp_deps"] = {
 -- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
 ---@type string[]
 settings["dap_deps"] = {
-	"codelldb", -- C-Family
-	"delve", -- Go
-	"python", -- Python (debugpy)
+  "codelldb", -- C-Family
+  "delve", -- Go
+  "python" -- Python (debugpy)
 }
 
 -- Set the Treesitter parsers that will be installed during bootstrap here.
@@ -123,34 +123,34 @@ settings["dap_deps"] = {
 -- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 ---@type string[]
 settings["treesitter_deps"] = {
-	"bash",
-	"c",
-	"cpp",
-	"css",
-	"go",
-	"gomod",
-	"html",
-	"javascript",
-	"json",
-	"jsonc",
-	"lua",
-	"make",
-	"markdown",
-	"markdown_inline",
-	"python",
-	"rust",
-	"typescript",
-	"vimdoc",
-	"vue",
-	"yaml",
+  "bash",
+  "c",
+  "cpp",
+  "css",
+  "go",
+  "gomod",
+  "html",
+  "javascript",
+  "json",
+  "jsonc",
+  "lua",
+  "make",
+  "markdown",
+  "markdown_inline",
+  "python",
+  "rust",
+  "typescript",
+  "vimdoc",
+  "vue",
+  "yaml"
 }
 
 -- Set the options for neovim's gui clients like `neovide` and `neovim-qt` here.
 -- NOTE: Currently, only the following options related to the GUI are supported. Other entries will be IGNORED.
 ---@type { font_name: string, font_size: number }
 settings["gui_config"] = {
-	font_name = "SauceCodePro Nerd Font",
-	font_size = 12,
+  font_name = "SauceCodePro Nerd Font",
+  font_size = 12
 }
 
 -- Set the options specific to `neovide` here.
@@ -165,25 +165,25 @@ settings["neovide_config"] = {}
 -- More info: https://github.com/ayamir/nvimdots/wiki/Issues#change-dashboard-startup-image
 ---@type string[]
 settings["dashboard_image"] = {
-	[[⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⣠⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣡⣾⣿⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⣿⣟⠻⣿⣿⣿⣿⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⣿⣿⡿⢫⣷⣿⣿⣿⣿⣿⣿⣿⣾⣯⣿⡿⢧⡚⢷⣌⣽⣿⣿⣿⣿⣿⣶⡌⣿⣿⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⣿⣿⠇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣮⣇⣘⠿⢹⣿⣿⣿⣿⣿⣻⢿⣿⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⣿⣿⠀⢸⣿⣿⡇⣿⣿⣿⣿⣿⣿⣿⣿⡟⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣻⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⣿⡇⠀⣬⠏⣿⡇⢻⣿⣿⣿⣿⣿⣿⣿⣷⣼⣿⣿⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⢻⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⣿⠀⠈⠁⠀⣿⡇⠘⡟⣿⣿⣿⣿⣿⣿⣿⣿⡏⠿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣇⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⡏⠀⠀⠐⠀⢻⣇⠀⠀⠹⣿⣿⣿⣿⣿⣿⣩⡶⠼⠟⠻⠞⣿⡈⠻⣟⢻⣿⣿⣿⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⢿⠀⡆⠀⠘⢿⢻⡿⣿⣧⣷⢣⣶⡃⢀⣾⡆⡋⣧⠙⢿⣿⣿⣟⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⡥⠂⡐⠀⠁⠑⣾⣿⣿⣾⣿⣿⣿⡿⣷⣷⣿⣧⣾⣿⣿⣿⣿⣿⣿⣿]],
-	[[⣿⣿⡿⣿⣍⡴⠆⠀⠀⠀⠀⠀⠀⠀⠀⣼⣄⣀⣷⡄⣙⢿⣿⣿⣿⣿⣯⣶⣿⣿⢟⣾⣿⣿⢡⣿⣿⣿⣿⣿]],
-	[[⣿⡏⣾⣿⣿⣿⣷⣦⠀⠀⠀⢀⡀⠀⠀⠠⣭⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⣡⣾⣿⣿⢏⣾⣿⣿⣿⣿⣿]],
-	[[⣿⣿⣿⣿⣿⣿⣿⣿⡴⠀⠀⠀⠀⠀⠠⠀⠰⣿⣿⣿⣷⣿⠿⠿⣿⣿⣭⡶⣫⠔⢻⢿⢇⣾⣿⣿⣿⣿⣿⣿]],
-	[[⣿⣿⣿⡿⢫⣽⠟⣋⠀⠀⠀⠀⣶⣦⠀⠀⠀⠈⠻⣿⣿⣿⣾⣿⣿⣿⣿⡿⣣⣿⣿⢸⣾⣿⣿⣿⣿⣿⣿⣿]],
-	[[⡿⠛⣹⣶⣶⣶⣾⣿⣷⣦⣤⣤⣀⣀⠀⠀⠀⠀⠀⠀⠉⠛⠻⢿⣿⡿⠫⠾⠿⠋⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]],
-	[[⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣀⡆⣠⢀⣴⣏⡀⠀⠀⠀⠉⠀⠀⢀⣠⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]],
-	[[⠿⠛⠛⠛⠛⠛⠛⠻⢿⣿⣿⣿⣿⣯⣟⠷⢷⣿⡿⠋⠀⠀⠀⠀⣵⡀⢠⡿⠋⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿]],
-	[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠛⢿⣿⣿⠂⠀⠀⠀⠀⠀⢀⣽⣿⣿⣿⣿⣿⣿⣿⣍⠛⠿⣿⣿⣿⣿⣿⣿]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]],
+  [[]]
 }
 
-return require("modules.utils").extend_config(settings, "user.settings")
+return settings

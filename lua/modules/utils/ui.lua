@@ -14,7 +14,10 @@ function M.get_signs(buf, lnum)
   if vim.fn.has("nvim-0.10") == 0 then
     -- Only needed for Neovim <0.10
     -- Newer versions include legacy signs in nvim_buf_get_extmarks
-    for _, sign in ipairs(vim.fn.sign_getplaced(buf, { group = "*", lnum = lnum })[1].signs) do
+    for _, sign in ipairs(vim.fn.sign_getplaced(buf, {
+      group = "*",
+      lnum = lnum
+    })[1].signs) do
       local ret = vim.fn.sign_getdefined(sign.name)[1] --[[@as Sign]]
       if ret then
         ret.priority = sign.priority
@@ -24,19 +27,22 @@ function M.get_signs(buf, lnum)
   end
 
   -- Get extmark signs
-  local extmarks = vim.api.nvim_buf_get_extmarks(
-    buf,
-    -1,
-    { lnum - 1, 0 },
-    { lnum - 1, -1 },
-    { details = true, type = "sign" }
-  )
+  local extmarks = vim.api.nvim_buf_get_extmarks(buf, -1, {
+    lnum - 1,
+    0
+  }, {
+    lnum - 1,
+    -1
+  }, {
+    details = true,
+    type = "sign"
+  })
   for _, extmark in pairs(extmarks) do
     signs[#signs + 1] = {
       name = extmark[4].sign_hl_group or "",
       text = extmark[4].sign_text,
       texthl = extmark[4].sign_hl_group,
-      priority = extmark[4].priority,
+      priority = extmark[4].priority
     }
   end
 
@@ -56,7 +62,10 @@ function M.get_mark(buf, lnum)
   vim.list_extend(marks, vim.fn.getmarklist())
   for _, mark in ipairs(marks) do
     if mark.pos[1] == buf and mark.pos[2] == lnum and mark.mark:match("[a-zA-Z]") then
-      return { text = mark.mark:sub(2), texthl = "DiagnosticHint" }
+      return {
+        text = mark.mark:sub(2),
+        texthl = "DiagnosticHint"
+      }
     end
   end
 end
@@ -77,7 +86,11 @@ function M.statuscolumn()
   local is_file = vim.bo[buf].buftype == ""
   local show_signs = vim.wo[win].signcolumn ~= "no"
 
-  local components = { "", "", "" } -- left, middle, right
+  local components = {
+    "",
+    "",
+    ""
+  } -- left, middle, right
 
   if show_signs then
     ---@type Sign?,Sign?,Sign?
@@ -94,7 +107,10 @@ function M.statuscolumn()
     end
     vim.api.nvim_win_call(win, function()
       if vim.fn.foldclosed(vim.v.lnum) >= 0 then
-        fold = { text = vim.opt.fillchars:get().foldclose or "", texthl = "Folded" }
+        fold = {
+          text = vim.opt.fillchars:get().foldclose or "",
+          texthl = "Folded"
+        }
       end
     end)
     -- Left: mark or non-git sign

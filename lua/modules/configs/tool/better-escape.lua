@@ -1,5 +1,9 @@
 return function()
-    require("modules.utils").load_plugin("better_escape", {
-        mapping = {"jk"}
-    })
+  require("modules.utils").load_plugin("better_escape", {
+    i = {
+      j = {
+        k = "<Esc>",
+      }
+    }
+  })
 end
