@@ -68,19 +68,17 @@ function M.migrate()
   elseif json.data.version == 1 then
     json.data.extras = vim.tbl_map(function(extra)
       -- replace double extras module name
-      return extra:gsub("^lazyvim%.plugins%.extras%.lazyvim%.plugins%.extras%.", "modules.configs.extras.")
+      return extra:gsub("^modules%.configs%.extras%.modules%.configs%.extras%.", "modules.configs.extras.")
     end, json.data.extras or {})
   elseif json.data.version == 2 then
     json.data.extras = vim.tbl_map(function(extra)
-      return extra == "modules.configs.extras.editor.symbols-outline" and "modules.configs.extras.editor.outline"
-        or extra
+      return extra == "modules.configs.extras.editor.symbols-outline" and "modules.configs.extras.editor.outline" or
+               extra
     end, json.data.extras or {})
   elseif json.data.version == 3 then
     json.data.extras = vim.tbl_filter(function(extra)
-      return not (
-        extra == "modules.configs.extras.coding.mini-ai"
-        or extra == "modules.configs.extras.ui.treesitter-rewrite"
-      )
+      return not (extra == "modules.configs.extras.coding.mini-ai" or extra ==
+               "modules.configs.extras.ui.treesitter-rewrite")
     end, json.data.extras or {})
   elseif json.data.version == 4 then
     json.data.extras = vim.tbl_filter(function(extra)

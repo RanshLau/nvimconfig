@@ -32,15 +32,13 @@ function Lazy:load_plugins()
   local get_plugins_list = function()
     local list = {}
     local plugins_list = vim.split(fn.glob(modules_dir .. "/plugins/*.lua"), "\n")
-    local user_plugins_list = vim.split(fn.glob(user_config_dir .. "/plugins/*.lua"), "\n", {
-      trimempty = true
-    })
-    vim.list_extend(plugins_list, user_plugins_list)
+
     for _, f in ipairs(plugins_list) do
       -- aggregate the plugins from `/plugins/*.lua` and `/user/plugins/*.lua` to a plugin list of a certain field for later `require` action.
       -- current fields contains: completion, editor, lang, tool, ui
       list[#list + 1] = f:find(modules_dir) and f:sub(#modules_dir - 6, -1) or f:sub(#user_config_dir - 3, -1)
     end
+
     return list
   end
 
@@ -49,14 +47,14 @@ function Lazy:load_plugins()
   for _, m in ipairs(get_plugins_list()) do
     -- require modules returned from `get_plugins_list()` function.
     local modules = require(m:sub(0, #m - 4))
+
     if type(modules) == "table" then
-      for name, conf in pairs(modules) do
-        self.modules[#self.modules + 1] = vim.tbl_extend("force", {
-          name
-        }, conf)
+      for _, conf in pairs(modules) do
+        self.modules[#self.modules + 1] = conf
       end
     end
   end
+
   for _, name in ipairs(settings.disabled_plugins) do
     self.modules[#self.modules + 1] = {
       name,
@@ -77,7 +75,6 @@ function Lazy:load_lazy()
       lazypath
     })
   end
-  self:load_plugins()
 
   -- local clone_prefix = use_ssh and "git@github.com:%s.git" or "https://github.com/%s.git"
   local lazy_settings = {
@@ -150,7 +147,8 @@ function Lazy:load_lazy()
   end
 
   vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
-  _G.LazyVim = require("modules.utils")
+  require("core.config").init()
+  self:load_plugins()
   require("lazy").setup(self.modules, lazy_settings)
 end
 

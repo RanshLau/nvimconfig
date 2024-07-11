@@ -123,7 +123,7 @@ return function()
 		},
 		-- Generic UI Options: https://nvimdev.github.io/lspsaga/misc/#generic-ui-options
 		ui = {
-			border = "single", -- Can be single, double, rounded, solid, shadow.
+			border = "solid", -- Can be single, double, rounded, solid, shadow.
 			devicon = true,
 			title = true,
 			expand = icons.ui.ArrowClosed,

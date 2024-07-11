@@ -1,3 +1,5 @@
+_G.LazyVim = require("modules.utils")
+
 local M = {}
 
 M.json = {
@@ -95,34 +97,6 @@ function M.get_kind_filter(buf)
   return type(M.kind_filter) == "table" and type(M.kind_filter.default) == "table" and M.kind_filter.default or nil
 end
 
--- M.did_init = false
--- function M.init()
---   if M.did_init then
---     return
---   end
---   M.did_init = true
---   local plugin = require("lazy.core.config").spec.plugins.LazyVim
---   if plugin then
---     vim.opt.rtp:append(plugin.dir)
---   end
-
---   -- delay notifications till vim.notify was replaced or after 500ms
---   LazyVim.lazy_notify()
-
---   -- load options here, before lazy init while sourcing plugin modules
---   -- this is needed to make sure options will be correctly applied
---   -- after installing missing plugins
---   M.load("options")
-
---   if vim.g.deprecation_warnings == false then
---     vim.deprecate = function()
---     end
---   end
-
---   LazyVim.plugin.setup()
---   M.json.load()
--- end
-
 LazyVim.config = M
 
-M.init()
+return M

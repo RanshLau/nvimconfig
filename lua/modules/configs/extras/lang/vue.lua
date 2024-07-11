@@ -7,7 +7,7 @@ return {
   end,
 
   -- depends on the typescript extra
-  { import = "lazyvim.plugins.extras.lang.typescript" },
+  { import = "modules.configs.extras.lang.typescript" },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -22,7 +22,7 @@ return {
         volar = {
           init_options = {
             vue = {
-              hybridMode = false,
+              hybridMode = true,
             },
           },
         },

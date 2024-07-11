@@ -43,7 +43,8 @@ function M.save_core()
   if vim.v.vim_did_enter == 1 then
     return
   end
-  M.core_imports = vim.deepcopy(require("lazy.core.config").spec.modules)
+
+  -- M.core_imports = vim.deepcopy(require("lazy.core.config").spec.modules)
 end
 
 function M.setup()

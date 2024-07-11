@@ -7,7 +7,7 @@ local prios = {
   ["modules.plugins.extras.formatting.prettier"] = 10,
   -- default priority is 50
   ["modules.plugins.extras.editor.aerial"] = 100,
-  ["modules.plugins.extras.editor.outline"] = 100,
+  ["modules.plugins.extras.editor.outline"] = 100
 }
 
 ---@type string[]
@@ -19,9 +19,6 @@ local extras = LazyVim.dedup(LazyVim.config.json.data.extras)
 -- local compat = { "0_9" }
 
 LazyVim.plugin.save_core()
--- if vim.tbl_contains(compat, v) then
---   table.insert(extras, 1, "lazyvim.plugins.compat.nvim-" .. v)
--- end
 
 table.sort(extras, function(a, b)
   local pa = prios[a] or 50
@@ -34,5 +31,7 @@ end)
 
 ---@param extra string
 return vim.tbl_map(function(extra)
-  return { import = extra }
+  return {
+    import = extra
+  }
 end, extras)

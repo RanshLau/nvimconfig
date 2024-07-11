@@ -1,0 +1,12 @@
+{
+  "extras": [
+    "modules.configs.extras.formatting.prettier",
+    "modules.configs.extras.lang.typescript",
+    "modules.configs.extras.lang.vue",
+    "modules.configs.extras.linting.eslint"
+  ],
+  "news": [
+
+  ],
+  "version": 6
+}
