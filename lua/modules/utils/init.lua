@@ -86,8 +86,8 @@ end
 function M.has_extra(extra)
   local Config = require("lazyvim.config")
   local modname = "lazyvim.plugins.extras." .. extra
-  return vim.tbl_contains(require("lazy.core.config").spec.modules, modname)
-    or vim.tbl_contains(Config.json.data.extras, modname)
+  return vim.tbl_contains(require("lazy.core.config").spec.modules, modname) or
+           vim.tbl_contains(Config.json.data.extras, modname)
 end
 
 ---@param fn fun()
@@ -96,7 +96,7 @@ function M.on_very_lazy(fn)
     pattern = "VeryLazy",
     callback = function()
       fn()
-    end,
+    end
   })
 end
 
@@ -109,7 +109,9 @@ end
 ---@param values T[]
 ---@return T[]?
 function M.extend(t, key, values)
-  local keys = vim.split(key, ".", { plain = true })
+  local keys = vim.split(key, ".", {
+    plain = true
+  })
   for i = 1, #keys do
     local k = keys[i]
     t[k] = t[k] or {}
@@ -184,7 +186,7 @@ function M.on_load(name, fn)
           fn(name)
           return true
         end
-      end,
+      end
     })
   end
 end
@@ -195,7 +197,9 @@ end
 function M.safe_keymap_set(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
   ---@cast keys LazyKeysHandler
-  local modes = type(mode) == "string" and { mode } or mode
+  local modes = type(mode) == "string" and {
+    mode
+  } or mode
 
   ---@param m string
   modes = vim.tbl_filter(function(m)
@@ -250,15 +254,18 @@ function M.get_pkg_path(pkg, path, opts)
   path = path or ""
   local ret = root .. "/packages/" .. pkg .. "/" .. path
   if opts.warn and not vim.loop.fs_stat(ret) and not require("lazy.core.config").headless() then
-    M.warn(
-      ("Mason package path not found for **%s**:\n- `%s`\nYou may need to force update the package."):format(pkg, path)
-    )
+    M.warn(("Mason package path not found for **%s**:\n- `%s`\nYou may need to force update the package."):format(pkg,
+      path))
   end
   return ret
 end
 
 --- Override the default title for notifications.
-for _, level in ipairs({ "info", "warn", "error" }) do
+for _, level in ipairs({
+  "info",
+  "warn",
+  "error"
+}) do
   M[level] = function(msg, opts)
     opts = opts or {}
     opts.title = opts.title or "LazyVim"
@@ -272,7 +279,9 @@ local cache = {} ---@type table<(fun()), table<string, any>>
 ---@return T
 function M.memoize(fn)
   return function(...)
-    local key = vim.inspect({ ... })
+    local key = vim.inspect({
+      ...
+    })
     cache[fn] = cache[fn] or {}
     if cache[fn][key] == nil then
       cache[fn][key] = fn(...)
@@ -340,7 +349,7 @@ local function init_palette()
   end
 
   if not palette then
-    palette = vim.g.colors_name:find("catppuccin") and require("catppuccin.palettes").get_palette() or {
+    palette = {
       rosewater = "#DC8A78",
       flamingo = "#DD7878",
       mauve = "#CBA6F7",
@@ -400,7 +409,6 @@ local function set_global_hl(name, foreground, background, italic)
     fg = foreground,
     bg = background,
     italic = italic == true,
-    default = not vim.g.colors_name:find("catppuccin")
   })
 end
 

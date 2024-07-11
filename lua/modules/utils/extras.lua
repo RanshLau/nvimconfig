@@ -28,8 +28,8 @@ M.buf = 0
 
 ---@type LazyExtraSource[]
 M.sources = {
-  { name = "LazyVim", desc = "LazyVim extras", module = "lazyvim.plugins.extras" },
-  { name = "User", desc = "User extras", module = "plugins.extras" },
+  { name = "LazyVim", desc = "LazyVim extras", module = "modules.configs.extras" },
+  { name = "User", desc = "User extras", module = "user.plugins.extras" },
 }
 
 M.ns = vim.api.nvim_create_namespace("lazyvim.extras")

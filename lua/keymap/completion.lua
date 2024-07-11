@@ -13,6 +13,7 @@ local mapping = {}
 function mapping.lsp(buf)
 	local map = {
 		-- LSP-related keymaps, ONLY effective in buffers with LSP(s) attached
+		-- ["n|<leader>cm"] = map_cr("Mason"):with_desc("Mason"),
 		["n|<leader>li"] = map_cr("LspInfo"):with_silent():with_buffer(buf):with_desc("lsp: Info"),
 		["n|<leader>lr"] = map_cr("LspRestart"):with_silent():with_buffer(buf):with_nowait():with_desc("lsp: Restart"),
 		["n|go"] = map_cr("AerialToggle!"):with_silent():with_buffer(buf):with_desc("lsp: Toggle outline"),
