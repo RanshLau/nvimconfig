@@ -1,5 +1,4 @@
 return function()
-    local colors = require("modules.utils").get_palette()
     local icons = {
         diagnostics = require("modules.utils.icons").get("diagnostics", true),
         git = require("modules.utils.icons").get("git", true),

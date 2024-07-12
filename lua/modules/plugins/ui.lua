@@ -34,15 +34,26 @@ return {
     event = "BufWinEnter",
     config = require("ui.alpha")
   },
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   lazy = true,
+  --   event = {
+  --     "BufReadPost",
+  --     "BufAdd",
+  --     "BufNewFile"
+  --   },
+  --   config = require("ui.bufferline")
+  -- },
   {
-    "akinsho/bufferline.nvim",
+    "nanozuki/tabby.nvim",
     lazy = true,
     event = {
       "BufReadPost",
       "BufAdd",
       "BufNewFile"
     },
-    config = require("ui.bufferline")
+    dependencies = "nvim-tree/nvim-web-devicons",
+    config = require("ui.tabby").config
   },
   {
     "RanshLau/gruvbox.nvim",
@@ -66,14 +77,14 @@ return {
     config = require("ui.gitsigns")
   },
   {
-    "nvim-lualine/lualine.nvim",
+    "freddiehaddad/feline.nvim",
     lazy = true,
     event = {
       "BufReadPost",
       "BufAdd",
       "BufNewFile"
     },
-    config = require("ui.lualine")
+    config = require("ui.feline").config
   },
   {
     "rcarriga/nvim-notify",

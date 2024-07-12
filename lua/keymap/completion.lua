@@ -4,8 +4,11 @@ local map_cmd = bind.map_cmd
 local map_callback = bind.map_callback
 
 local plug_map = {
-  ["n|<A-F>"] = map_cmd("<Cmd>FormatToggle<CR>"):with_silent():with_noremap():with_desc(
-    "formatter: Toggle format on save")
+  ["n|<A-F>"] = map_callback(function()
+    LazyVim.format({
+      force = true
+    })
+  end):with_silent():with_noremap():with_desc("formatter: Toggle format on save")
 }
 bind.nvim_load_mapping(plug_map)
 

@@ -77,7 +77,7 @@ return function()
       "/",
       "?"
     },
-    next_key = '<C-n>',
-		previous_key = '<C-p>',
+    next_key = '<C-j>',
+		previous_key = '<C-k>',
   })
 end

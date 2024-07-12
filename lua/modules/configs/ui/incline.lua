@@ -1,6 +1,4 @@
 return function()
-    local colors = require('gruvbox').palette
-
     local function get_toggleterm_id(props)
         local id = ' ' .. vim.fn.bufname(props.buf) .. ' '
         return {{
