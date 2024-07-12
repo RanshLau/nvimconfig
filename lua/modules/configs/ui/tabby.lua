@@ -3,34 +3,14 @@ local M = {}
 function M.config()
   local colors = require('gruvbox').palette
 
-  print(vim.inspect(colors))
-
   local theme = {
-    fill = {
-      fg = colors.light1,
-      bg = colors.dark0
-    },
+    fill = { bg = colors.dark1 },
     -- Also you can do this: fill = { fg='#f2e9de', bg='#907aa9', style='italic' }
-    head = {
-      fg = colors.light1,
-      bg = colors.dark0
-    },
-    current_tab = {
-      fg = colors.light1,
-      bg = colors.dark0
-    },
-    tab = {
-      fg = colors.light1,
-      bg = colors.dark0
-    },
-    win = {
-      fg = colors.light1,
-      bg = colors.dark0
-    },
-    tail = {
-      fg = colors.light1,
-      bg = colors.dark0
-    }
+    head = { fg = colors.light0, bg = colors.dark2 },
+    current_tab = { fg = colors.dark0, bg = colors.light1 },
+    tab = { fg = colors.light0, bg = colors.dark2 },
+    win = { fg = colors.light0, bg = colors.dark2 },
+    tail = { fg = colors.light0, bg = colors.dark2 }
   }
 
   require("tabby").setup({
@@ -79,6 +59,8 @@ function M.config()
     end
     -- option = {}, -- setup modules' option,
   })
+
+  vim.o.showtabline = 2
 end
 
 return M
