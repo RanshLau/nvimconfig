@@ -1,7 +1,7 @@
 local M = {}
 
 function M.config()
-  local colors = require('gruvbox').palette
+  local colors = require("gruvbox").palette
 
   local theme = {
     fill = { bg = colors.dark1 },

@@ -79,6 +79,10 @@ return {
   {
     "freddiehaddad/feline.nvim",
     lazy = true,
+    dependencies = {
+      'lewis6991/gitsigns.nvim',
+      'nvim-tree/nvim-web-devicons'
+    },
     event = {
       "BufReadPost",
       "BufAdd",
