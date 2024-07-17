@@ -6,7 +6,7 @@ return {
       "CursorHold",
       "CursorHoldI"
     },
-    opts =  require("completion.lsp").opts,
+    opts = require("completion.lsp").opts,
     config = require("completion.lsp").config,
     dependencies = {
       {
@@ -32,8 +32,8 @@ return {
     opts_extend = {
       "ensure_installed"
     },
-    opts =  require("completion.mason").opts,
-    config = require("completion.mason").config,
+    opts = require("completion.mason").opts,
+    config = require("completion.mason").config
   },
   {
 
@@ -127,8 +127,7 @@ return {
         "kdheepak/cmp-latex-symbols"
       },
       {
-        "ray-x/cmp-treesitter",
-        commit = "c8e3a74"
+        "ray-x/cmp-treesitter"
       }
       -- { "tzachar/cmp-tabnine", build = "./install.sh", config = require("completion.tabnine") },
       -- {

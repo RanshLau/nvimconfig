@@ -64,7 +64,7 @@ return function()
 					nvim_lua = "[LUA]",
 					path = "[PATH]",
 					tmux = "[TMUX]",
-					treesitter = "[TS]",
+					treesitter = "[TRES]",
 					latex_symbols = "[LTEX]",
 					luasnip = "[SNIP]",
 					spell = "[SPELL]",

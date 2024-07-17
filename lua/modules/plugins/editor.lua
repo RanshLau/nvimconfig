@@ -143,9 +143,9 @@ return {
     event = "BufReadPre",
     config = require("editor.treesitter"),
     dependencies = {
-      {
-        "andymass/vim-matchup"
-      },
+      -- {
+      --   "andymass/vim-matchup"
+      -- },
       {
         "mfussenegger/nvim-treehopper"
       },

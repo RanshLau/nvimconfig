@@ -2,288 +2,7 @@ local M = {}
 
 function M.config()
   local fmt = string.format
-
-  ----------------------------------------------------------------------------------------------------
-  -- Colors
-
-  ---Convert color number to hex string
-  ---@param n number
-  ---@return string
-  local hex = function(n)
-    if n then
-      return fmt("#%06x", n)
-    end
-  end
-
-  ---Parse `style` string into nvim_set_hl options
-  ---@param style string
-  ---@return table
-  local function parse_style(style)
-    if not style or style == "NONE" then
-      return {}
-    end
-
-    local result = {}
-    for token in string.gmatch(style, "([^,]+)") do
-      result[token] = true
-    end
-
-    return result
-  end
-
-  ---Get highlight opts for a given highlight group name
-  ---@param name string
-  ---@return table
-  local function get_highlight(name)
-    local hl = vim.api.nvim_get_hl_by_name(name, true)
-    if hl.link then
-      return get_highlight(hl.link)
-    end
-
-    local result = parse_style(hl.style)
-    result.fg = hl.foreground and hex(hl.foreground)
-    result.bg = hl.background and hex(hl.background)
-    result.sp = hl.special and hex(hl.special)
-
-    return result
-  end
-
-  ---Set highlight group from provided table
-  ---@param groups table
-  local function set_highlights(groups)
-    for group, opts in pairs(groups) do
-      vim.api.nvim_set_hl(0, group, opts)
-    end
-  end
-
-  ---Generate a color palette from the current applied colorscheme
-  ---@return table
-  local function generate_pallet_from_colorscheme()
-    local palette = require("gruvbox").palette
-
-    -- stylua: ignore
-    local color_map = {
-      black = {
-        index = 0,
-        default = palette.dark0
-      },
-      red = {
-        index = 1,
-        default = palette.bright_red
-      },
-      green = {
-        index = 2,
-        default = palette.bright_green
-      },
-      yellow = {
-        index = 3,
-        default = palette.bright_yellow
-      },
-      blue = {
-        index = 4,
-        default = palette.bright_blue
-      },
-      magenta = {
-        index = 5,
-        default = palette.bright_purple
-      },
-      cyan = {
-        index = 6,
-        default = palette.bright_aqua
-      },
-      white = {
-        index = 7,
-        default = palette.light0
-      }
-    }
-
-    local diagnostic_map = {
-      hint = {
-        hl = "DiagnosticHint",
-        default = color_map.green.default
-      },
-      info = {
-        hl = "DiagnosticInfo",
-        default = color_map.blue.default
-      },
-      warn = {
-        hl = "DiagnosticWarn",
-        default = color_map.yellow.default
-      },
-      error = {
-        hl = "DiagnosticError",
-        default = color_map.red.default
-      },
-      ok = {
-        hl = "DiagnosticOk",
-        default = color_map.green.default
-      }
-    }
-
-    local pallet = {}
-    for name, value in pairs(color_map) do
-      local global_name = "terminal_color_" .. value.index
-      pallet[name] = vim.g[global_name] and vim.g[global_name] or value.default
-    end
-
-    for name, value in pairs(diagnostic_map) do
-      pallet[name] = get_highlight(value.hl).fg or value.default
-    end
-
-    pallet.sl = get_highlight("StatusLine")
-    pallet.sel = get_highlight("TabLineSel")
-
-    return pallet
-  end
-
-  ---Generate user highlight groups based on the curent applied colorscheme
-  ---
-  ---NOTE: This is a global because I dont known where this file will be in your config
-  ---and it is needed for the autocmd below
-  _G._generate_user_statusline_highlights = function()
-    local pal = generate_pallet_from_colorscheme()
-
-    -- stylua: ignore
-    local sl_colors = {
-      Black = {
-        fg = pal.black,
-        bg = pal.white
-      },
-      Red = {
-        fg = pal.red,
-        bg = pal.sl.bg
-      },
-      Green = {
-        fg = pal.green,
-        bg = pal.sl.bg
-      },
-      Yellow = {
-        fg = pal.yellow,
-        bg = pal.sl.bg
-      },
-      Blue = {
-        fg = pal.blue,
-        bg = pal.sl.bg
-      },
-      Magenta = {
-        fg = pal.magenta,
-        bg = pal.sl.bg
-      },
-      Cyan = {
-        fg = pal.cyan,
-        bg = pal.sl.bg
-      },
-      White = {
-        fg = pal.white,
-        bg = pal.black
-      }
-    }
-
-    local colors = {}
-    for name, value in pairs(sl_colors) do
-      colors["User" .. name] = {
-        fg = value.fg,
-        bg = value.bg,
-        bold = true
-      }
-      colors["UserRv" .. name] = {
-        fg = value.bg,
-        bg = value.fg,
-        bold = true
-      }
-    end
-
-    local status = vim.o.background == "dark" and {
-      fg = pal.black,
-      bg = pal.white
-    } or {
-      fg = pal.white,
-      bg = pal.black
-    }
-
-    local groups = {
-      -- statusline
-      UserSLHint = {
-        fg = pal.sl.bg,
-        bg = pal.hint,
-        bold = true
-      },
-      UserSLInfo = {
-        fg = pal.sl.bg,
-        bg = pal.info,
-        bold = true
-      },
-      UserSLWarn = {
-        fg = pal.sl.bg,
-        bg = pal.warn,
-        bold = true
-      },
-      UserSLError = {
-        fg = pal.sl.bg,
-        bg = pal.error,
-        bold = true
-      },
-      UserSLStatus = {
-        fg = status.fg,
-        bg = status.bg,
-        bold = true
-      },
-
-      UserSLFtHint = {
-        fg = pal.sel.bg,
-        bg = pal.hint
-      },
-      UserSLHintInfo = {
-        fg = pal.hint,
-        bg = pal.info
-      },
-      UserSLInfoWarn = {
-        fg = pal.info,
-        bg = pal.warn
-      },
-      UserSLWarnError = {
-        fg = pal.warn,
-        bg = pal.error
-      },
-      UserSLErrorStatus = {
-        fg = pal.error,
-        bg = status.bg
-      },
-      UserSLStatusBg = {
-        fg = status.bg,
-        bg = pal.sl.bg
-      },
-
-      UserSLAlt = pal.sel,
-      UserSLAltSep = {
-        fg = pal.sl.bg,
-        bg = pal.sel.bg
-      },
-      UserSLGitBranch = {
-        fg = pal.yellow,
-        bg = pal.sl.bg
-      }
-    }
-
-    set_highlights(vim.tbl_extend("force", colors, groups))
-  end
-
-  _generate_user_statusline_highlights()
-
-  vim.api.nvim_create_augroup("UserStatuslineHighlightGroups", {
-    clear = true
-  })
-  vim.api.nvim_create_autocmd({
-    "SessionLoadPost",
-    "ColorScheme"
-  }, {
-    callback = function()
-      _generate_user_statusline_highlights()
-    end
-  })
-
-  ----------------------------------------------------------------------------------------------------
-  -- Feline
+  local palette = require("gruvbox").palette
 
   local vi = {
     -- Map vi mode to text name
@@ -307,42 +26,138 @@ function M.config()
 
     -- Maps vi mode to highlight group color defined above
     colors = {
-      n = "UserRvCyan",
-      no = "UserRvCyan",
-      i = "UserSLStatus",
-      v = "UserRvMagenta",
-      V = "UserRvMagenta",
-      [""] = "UserRvMagenta",
-      R = "UserRvRed",
-      Rv = "UserRvRed",
-      r = "UserRvBlue",
-      rm = "UserRvBlue",
-      s = "UserRvMagenta",
-      S = "UserRvMagenta",
-      [""] = "FelnMagenta",
-      c = "UserRvYellow",
-      ["!"] = "UserRvBlue",
-      t = "UserRvBlue"
+      n = {
+        fg = palette.dark0,
+        bg = palette.gray
+      },
+      no = {
+        fg = palette.dark0,
+        bg = palette.gray
+      },
+      i = {
+        fg = palette.dark0,
+        bg = palette.bright_blue
+      },
+      v = {
+        fg = palette.dark0,
+        bg = palette.bright_orange
+      },
+      V = {
+        fg = palette.dark0,
+        bg = palette.bright_orange
+      },
+      [""] = {
+        fg = palette.dark0,
+        bg = palette.bright_orange
+      },
+      R = {
+        fg = palette.dark0,
+        bg = palette.bright_red
+      },
+      Rv = {
+        fg = palette.dark0,
+        bg = palette.bright_red
+      },
+      r = {
+        fg = palette.dark0,
+        bg = palette.bright_red
+      },
+      rm = {
+        fg = palette.dark0,
+        bg = palette.bright_red
+      },
+      s = {
+        fg = palette.dark0,
+        bg = palette.bright_aqua
+      },
+      S = {
+        fg = palette.dark0,
+        bg = palette.bright_aqua
+      },
+      [""] = {
+        fg = palette.dark0,
+        bg = palette.bright_aqua
+      },
+      c = {
+        fg = palette.dark0,
+        bg = palette.bright_green
+      },
+      ["!"] = {
+        fg = palette.dark0,
+        bg = palette.bright_green
+      },
+      t = {
+        fg = palette.dark0,
+        bg = palette.bright_green
+      }
     },
 
     -- Maps vi mode to seperator highlight goup defined above
     sep = {
-      n = "UserCyan",
-      no = "UserCyan",
-      i = "UserSLStatusBg",
-      v = "UserMagenta",
-      V = "UserMagenta",
-      [""] = "UserMagenta",
-      R = "UserRed",
-      Rv = "UserRed",
-      r = "UserBlue",
-      rm = "UserBlue",
-      s = "UserMagenta",
-      S = "UserMagenta",
-      [""] = "FelnMagenta",
-      c = "UserYellow",
-      ["!"] = "UserBlue",
-      t = "UserBlue"
+      n = {
+        fg = palette.gray,
+        bg = palette.dark1
+      },
+      no = {
+        fg = palette.gray,
+        bg = palette.dark1
+      },
+      i = {
+        fg = palette.bright_blue,
+        bg = palette.dark1
+      },
+      v = {
+        fg = palette.bright_orange,
+        bg = palette.dark1
+      },
+      V = {
+        fg = palette.bright_orange,
+        bg = palette.dark1
+      },
+      [""] = {
+        fg = palette.bright_orange,
+        bg = palette.dark1
+      },
+      R = {
+        fg = palette.bright_red,
+        bg = palette.dark1
+      },
+      Rv = {
+        fg = palette.bright_red,
+        bg = palette.dark1
+      },
+      r = {
+        fg = palette.bright_red,
+        bg = palette.dark1
+      },
+      rm = {
+        fg = palette.bright_red,
+        bg = palette.dark1
+      },
+      s = {
+        fg = palette.bright_aqua,
+        bg = palette.dark1
+      },
+      S = {
+        fg = palette.bright_aqua,
+        bg = palette.dark1
+      },
+      [""] = {
+        fg = palette.bright_aqua,
+        bg = palette.dark1
+      },
+      c = {
+        fg = palette.bright_green,
+        bg = palette.dark1
+      },
+      ["!"] = {
+        fg = palette.bright_green,
+        bg = palette.dark1
+      },
+      t = {
+        fg = palette.bright_green,
+        bg = palette.dark1
+      }
     }
   }
 
@@ -392,12 +207,14 @@ function M.config()
   ---Get highlight group from vi mode
   ---@return string
   local function vi_mode_hl()
-    return vi.colors[vim.fn.mode()] or "UserSLViBlack"
+    local hl = vi.colors[vim.fn.mode()]
+    hl.style = "bold"
+    return hl
   end
 
   ---Get sep highlight group from vi mode
   local function vi_sep_hl()
-    return vi.sep[vim.fn.mode()] or "UserSLBlack"
+    return vi.sep[vim.fn.mode()]
   end
 
   ---Get the path of the file relative to the cwd
@@ -414,7 +231,28 @@ function M.config()
 
     table.insert(list, vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":~:."))
 
-    return table.concat(list, " ")
+    return table.concat(list, " ") .. " "
+  end
+
+  local function cursor_percentage()
+    local current_line = vim.fn.line(".")
+    local total_lines = vim.fn.line("$")
+    local percentage = math.floor((current_line / total_lines) * 100)
+    local percentage_str = string.format("%d%%%%", percentage)
+    local max_length = 4 -- 假设最大长度为 "100%" (4个字符)
+    local padding = string.rep(" ", max_length - #percentage_str)
+
+    return "  " .. padding .. percentage_str .. " "
+  end
+
+  local function indent_provider()
+    local expandtab = vim.api.nvim_buf_get_option(0, 'expandtab')
+    local tabstop = vim.api.nvim_buf_get_option(0, 'tabstop')
+    local shiftwidth = vim.api.nvim_buf_get_option(0, 'shiftwidth')
+    local indent_type = expandtab and 'SP' or 'TB'
+    local indent_size = expandtab and shiftwidth or tabstop
+
+    return string.format(" %s: %d ", indent_type, indent_size)
   end
 
   -- Create a table that contians every status line commonent
@@ -429,101 +267,161 @@ function M.config()
         hl = vi_sep_hl
       }
     },
-    gitbranch = {
-      provider = "git_branch",
-      icon = " ",
-      hl = "UserSLGitBranch",
-      right_sep = {
-        str = "  ",
-        hl = "UserSLGitBranch"
-      },
-      enabled = function()
-        return vim.b.gitsigns_status_dict ~= nil
-      end
-    },
-    file_type = {
-      provider = function()
-        return fmt(" %s ", vim.bo.filetype:upper())
-      end,
-      hl = "UserSLAlt"
-    },
     fileinfo = {
       provider = {
         name = "file_info",
         opts = {
-          type = "relative"
+          type = "relative",
+          colored_icon = false
         }
       },
-      hl = "UserSLAlt",
+      hl = {
+        fg = palette.bright_blue,
+        bg = palette.dark1,
+        style = "bold"
+      }
+    },
+    gitbranch = {
+      provider = function()
+        local git = require('feline.providers.git')
+        local branch = git.git_branch()
+        local s
+        if #branch > 0 then
+          s = string.format("  %s ", branch)
+        else
+          s = string.format(" %s ", "Untracked")
+        end
+
+        return s
+      end,
+      hl = {
+        fg = palette.light0,
+        bg = palette.dark0,
+        style = 'bold'
+      },
       left_sep = {
-        str = " ",
-        hl = "UserSLAltSep"
+        str = " " .. icons.slant_left,
+        hl = {
+          fg = palette.dark0,
+          bg = palette.dark1
+        }
       },
       right_sep = {
-        str = " ",
-        hl = "UserSLAltSep"
-      }
+        str = icons.slant_right,
+        hl = {
+          fg = palette.dark0,
+          bg = palette.dark1
+        }
+      },
+      enabled = function()
+        return vim.b.gitsigns_status_dict ~= nil
+      end
     },
     file_enc = {
       provider = function()
         local os = icons[vim.bo.fileformat] or ""
         return fmt(" %s %s ", os, vim.bo.fileencoding)
       end,
-      hl = "StatusLine",
+      hl = {
+        fg = palette.light0,
+        bg = palette.dark2
+      },
       left_sep = {
         str = icons.left_filled,
-        hl = "UserSLAltSep"
+        hl = {
+          fg = palette.dark2,
+          bg = palette.dark1
+        }
+      }
+    },
+    file_type = {
+      provider = function()
+        return fmt(" %s ", vim.bo.filetype:upper())
+      end,
+      hl = {
+        fg = palette.bright_aqua,
+        bg = palette.dark2,
+        style = "bold"
+      }
+    },
+    indent_info = {
+      provider = indent_provider,
+      hl = {
+        fg = palette.light0,
+        bg = palette.dark1,
+        style = "bold"
+      },
+      left_sep = {
+        str = icons.left_filled,
+        hl = {
+          fg = palette.dark1,
+          bg = palette.dark2
+        }
       }
     },
     cur_position = {
       provider = function()
-        -- TODO: What about 4+ diget line numbers?
-        return fmt(" %3d:%-2d ", unpack(vim.api.nvim_win_get_cursor(0)))
+        return fmt("  %3d:%-2d ", unpack(vim.api.nvim_win_get_cursor(0)))
       end,
-      hl = vi_mode_hl,
+      hl = {
+        fg = palette.dark0,
+        bg = palette.gray,
+        style = "bold"
+      },
       left_sep = {
         str = icons.left_filled,
-        hl = vi_sep_hl
+        hl = {
+          fg = palette.gray,
+          bg = palette.dark1
+        }
       }
     },
-    cur_percent = {
-      provider = function()
-        return " " .. require("feline.providers.cursor").line_percentage() .. "  "
-      end,
-      hl = vi_mode_hl,
+    cursor_percentage = {
+      provider = cursor_percentage,
+      hl = {
+        fg = palette.dark0,
+        bg = palette.gray,
+        style = "bold"
+      },
       left_sep = {
         str = icons.left,
-        hl = vi_mode_hl
+        hl = {
+          fg = palette.dark0,
+          bg = palette.gray
+        }
       }
+    },
+    scroll_bar = {
+      provider = {
+        name = "scroll_bar",
+        opts = {
+          reverse = true
+        }
+      },
+      hl = {
+        fg = palette.bright_yellow,
+        bg = palette.gray
+      }
+
     },
     default = { -- needed to pass the parent StatusLine hl group to right hand side
       provider = "",
       hl = "StatusLine"
     },
-    lsp_status = {
-      provider = function()
-        return vim.tbl_count(vim.lsp.buf_get_clients(0)) == 0 and "" or " ◦ "
-      end,
-      hl = "UserSLStatus",
-      left_sep = {
-        str = "",
-        hl = "UserSLStatusBg",
-        always_visible = true
-      },
-      right_sep = {
-        str = "",
-        hl = "UserSLErrorStatus",
-        always_visible = true
-      }
-    },
     lsp_error = {
       provider = function()
         return get_diag("ERROR")
       end,
-      hl = "UserSLError",
-      right_sep = {
+      hl = {
+        fg = palette.dark0,
+        bg = palette.bright_red
+      },
+      left_sep = {
         str = "",
-        hl = "UserSLWarnError",
+        hl = {
+          fg = palette.bright_red,
+          bg = palette.dark1
+        },
         always_visible = true
       }
     },
@@ -531,32 +429,60 @@ function M.config()
       provider = function()
         return get_diag("WARN")
       end,
-      hl = "UserSLWarn",
-      right_sep = {
+      hl = {
+        fg = palette.dark0,
+        bg = palette.bright_yellow
+      },
+      left_sep = {
         str = "",
-        hl = "UserSLInfoWarn",
+        hl = {
+          fg = palette.bright_yellow,
+          bg = palette.bright_red
+        },
         always_visible = true
       }
     },
-    lsp_info = {
-      provider = function()
-        return get_diag("INFO")
-      end,
-      hl = "UserSLInfo",
-      right_sep = {
-        str = "",
-        hl = "UserSLHintInfo",
-        always_visible = true
-      }
-    },
+
     lsp_hint = {
       provider = function()
         return get_diag("HINT")
       end,
-      hl = "UserSLHint",
+      hl = {
+        fg = palette.dark0,
+        bg = palette.bright_aqua
+      },
+      left_sep = {
+        str = "",
+        hl = {
+          fg = palette.bright_aqua,
+          bg = palette.bright_yellow
+        },
+        always_visible = true
+      }
+    },
+
+    lsp_info = {
+      provider = function()
+        return get_diag("INFO")
+      end,
+      hl = {
+        fg = palette.dark0,
+        bg = palette.bright_blue
+      },
+      left_sep = {
+        str = "",
+        hl = {
+          fg = palette.bright_blue,
+          bg = palette.bright_aqua
+        },
+        always_visible = true
+      },
       right_sep = {
         str = "",
-        hl = "UserSLFtHint",
+        hl = {
+          fg = palette.dark1,
+          bg = palette.bright_blue
+        },
         always_visible = true
       }
     },
@@ -578,20 +504,21 @@ function M.config()
   local active = {
     { -- left
       c.vimode,
-      c.gitbranch,
       c.fileinfo,
+      c.gitbranch,
       c.default -- must be last
     },
     { -- right
-      c.lsp_status,
       c.lsp_error,
       c.lsp_warn,
-      c.lsp_info,
       c.lsp_hint,
-      c.file_type,
+      c.lsp_info,
       c.file_enc,
+      c.file_type,
+      c.indent_info,
       c.cur_position,
-      c.cur_percent
+      c.cursor_percentage,
+      c.scroll_bar
     }
   }
 
@@ -612,19 +539,14 @@ function M.config()
     highlight_reset_triggers = {},
     force_inactive = {
       filetypes = {
-        "NvimTree",
         "packer",
         "dap-repl",
         "dapui_scopes",
         "dapui_stacks",
         "dapui_watches",
         "dapui_repl",
-        "LspTrouble",
         "qf",
         "help"
-      },
-      buftypes = {
-        "terminal"
       },
       bufnames = {}
     },
