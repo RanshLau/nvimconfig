@@ -239,7 +239,7 @@ function M.config()
     local total_lines = vim.fn.line("$")
     local percentage = math.floor((current_line / total_lines) * 100)
     local percentage_str = string.format("%d%%%%", percentage)
-    local max_length = 4 -- 假设最大长度为 "100%" (4个字符)
+    local max_length = 5 -- 假设最大长度为 "100%" (4个字符)
     local padding = string.rep(" ", max_length - #percentage_str)
 
     return "  " .. padding .. percentage_str .. " "
@@ -306,12 +306,55 @@ function M.config()
           bg = palette.dark1
         }
       },
+      enabled = function()
+        return vim.b.gitsigns_status_dict ~= nil
+      end
+    },
+    git_add = {
+      provider = function()
+        local gitsigns = vim.b.gitsigns_status_dict
+        return gitsigns.added ~= 0 and fmt("+%d ", gitsigns.added) or ""
+      end,
+      hl = {
+        fg = palette.bright_green,
+        bg = palette.dark0,
+        style = "bold"
+      },
+      enabled = function()
+        return vim.b.gitsigns_status_dict ~= nil
+      end
+    },
+    git_change = {
+      provider = function()
+        local gitsigns = vim.b.gitsigns_status_dict
+        return gitsigns.changed ~= 0 and fmt("~%d ", gitsigns.changed) or ""
+      end,
+      hl = {
+        fg = palette.bright_yellow,
+        bg = palette.dark0,
+        style = "bold"
+      },
+      enabled = function()
+        return vim.b.gitsigns_status_dict ~= nil
+      end
+    },
+    git_remove = {
+      provider = function()
+        local gitsigns = vim.b.gitsigns_status_dict
+        return gitsigns.removed ~= 0 and fmt("-%d ", gitsigns.removed) or ""
+      end,
+      hl = {
+        fg = palette.bright_red,
+        bg = palette.dark0,
+        style = "bold"
+      },
       right_sep = {
         str = icons.slant_right,
         hl = {
           fg = palette.dark0,
           bg = palette.dark1
-        }
+        },
+        always_visible = true
       },
       enabled = function()
         return vim.b.gitsigns_status_dict ~= nil
@@ -404,10 +447,6 @@ function M.config()
       }
 
     },
-    default = { -- needed to pass the parent StatusLine hl group to right hand side
-      provider = "",
-      hl = "StatusLine"
-    },
     lsp_error = {
       provider = function()
         return get_diag("ERROR")
@@ -487,14 +526,6 @@ function M.config()
       }
     },
 
-    in_fileinfo = {
-      provider = "file_info",
-      hl = "StatusLine"
-    },
-    in_position = {
-      provider = "position",
-      hl = "StatusLine"
-    },
     file_winbar = {
       provider = file_info,
       hl = "Comment"
@@ -506,7 +537,9 @@ function M.config()
       c.vimode,
       c.fileinfo,
       c.gitbranch,
-      c.default -- must be last
+      c.git_add,
+      c.git_change,
+      c.git_remove
     },
     { -- right
       c.lsp_error,
@@ -523,11 +556,13 @@ function M.config()
   }
 
   local inactive = {
+    { -- left
+      c.vimode,
+      c.fileinfo,
+      c.gitbranch
+    },
     {
-      c.in_fileinfo
-    }, -- left
-    {
-      c.in_position
+      c.cur_position
     } -- right
   }
 
@@ -548,7 +583,10 @@ function M.config()
         "qf",
         "help"
       },
-      bufnames = {}
+      buftypes = {
+        'terminal',
+        'nofile'
+      }
     },
     disable = {
       filetypes = {

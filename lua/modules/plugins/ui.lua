@@ -71,8 +71,9 @@ return {
     "lewis6991/gitsigns.nvim",
     lazy = true,
     event = {
-      "CursorHold",
-      "CursorHoldI"
+      "BufReadPost",
+      "BufAdd",
+      "BufNewFile"
     },
     config = require("ui.gitsigns")
   },
@@ -147,13 +148,13 @@ return {
       })
     end
   },
-  {
-    "b0o/incline.nvim",
-    lazy = true,
-    event = {
-      "CursorHold",
-      "CursorHoldI"
-    },
-    config = require("ui.incline")
-  }
+  -- {
+  --   "b0o/incline.nvim",
+  --   lazy = true,
+  --   event = {
+  --     "CursorHold",
+  --     "CursorHoldI"
+  --   },
+  --   config = require("ui.incline")
+  -- }
 }
