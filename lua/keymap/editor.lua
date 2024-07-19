@@ -23,7 +23,7 @@ local plug_map = {
 		:with_noremap()
 		:with_expr()
 		:with_desc("edit: Toggle comment for line"),
-	["n|gbc"] = map_callback(function()
+	["n|gcb"] = map_callback(function()
 			return vim.v.count == 0 and et("<Plug>(comment_toggle_blockwise_current)")
 				or et("<Plug>(comment_toggle_blockwise_count)")
 		end)
@@ -31,19 +31,19 @@ local plug_map = {
 		:with_noremap()
 		:with_expr()
 		:with_desc("edit: Toggle comment for block"),
-	["n|gc"] = map_cmd("<Plug>(comment_toggle_linewise)")
+	["n|gcC"] = map_cmd("<Plug>(comment_toggle_linewise)")
 		:with_silent()
 		:with_noremap()
 		:with_desc("edit: Toggle comment for line with operator"),
-	["n|gb"] = map_cmd("<Plug>(comment_toggle_blockwise)")
+	["n|gcB"] = map_cmd("<Plug>(comment_toggle_blockwise)")
 		:with_silent()
 		:with_noremap()
 		:with_desc("edit: Toggle comment for block with operator"),
-	["x|gc"] = map_cmd("<Plug>(comment_toggle_linewise_visual)")
+	["v|gc"] = map_cmd("<Plug>(comment_toggle_linewise_visual)")
 		:with_silent()
 		:with_noremap()
 		:with_desc("edit: Toggle comment for line with selection"),
-	["x|gb"] = map_cmd("<Plug>(comment_toggle_blockwise_visual)")
+	["v|gcb"] = map_cmd("<Plug>(comment_toggle_blockwise_visual)")
 		:with_silent()
 		:with_noremap()
 		:with_desc("edit: Toggle comment for block with selection"),
@@ -58,6 +58,7 @@ local plug_map = {
 	["nv|<leader>jk"] = map_cmd("<Cmd>HopLineMW<CR>"):with_noremap():with_desc("jump: Goto line"),
 	["nv|<leader>jc"] = map_cmd("<Cmd>HopChar1MW<CR>"):with_noremap():with_desc("jump: Goto one char"),
 	["nv|<leader>jC"] = map_cmd("<Cmd>HopChar2MW<CR>"):with_noremap():with_desc("jump: Goto two chars"),
+	["vo|s"] = map_cmd("<Cmd>HopWordMW<CR>"):with_noremap():with_desc("jump: Goto two chars"),
 
 	-- Plugin: smart-splits.nvim
 	["n|<C-Left>"] = map_cu("SmartResizeLeft"):with_silent():with_noremap():with_desc("window: Resize -3 horizontally"),
@@ -74,25 +75,25 @@ local plug_map = {
 	["n|<leader>wl"] = map_cu("SmartSwapRight"):with_silent():with_noremap():with_desc("window: Move window rightward"),
 
 	-- Plugin: nvim-spectre
-	["n|<leader>Ss"] = map_callback(function()
+	["n|gss"] = map_callback(function()
 			require("spectre").toggle()
 		end)
 		:with_silent()
 		:with_noremap()
 		:with_desc("editn: Toggle search & replace panel"),
-	["n|<leader>Sp"] = map_callback(function()
+	["n|gsp"] = map_callback(function()
 			require("spectre").open_visual({ select_word = true })
 		end)
 		:with_silent()
 		:with_noremap()
 		:with_desc("editn: search&replace current word (project)"),
-	["v|<leader>Sp"] = map_callback(function()
+	["v|gsp"] = map_callback(function()
 			require("spectre").open_visual()
 		end)
 		:with_silent()
 		:with_noremap()
 		:with_desc("edit: search & replace current word (project)"),
-	["n|<leader>Sf"] = map_callback(function()
+	["n|gsf"] = map_callback(function()
 			require("spectre").open_file_search({ select_word = true })
 		end)
 		:with_silent()
@@ -100,7 +101,7 @@ local plug_map = {
 		:with_desc("editn: search & replace current word (file)"),
 
 	-- Plugin: nvim-treehopper
-	["o|m"] = map_cu("lua require('tsht').nodes()"):with_silent():with_desc("jump: Operate across syntax tree"),
+	["vo|S"] = map_cu("lua require('tsht').nodes()"):with_silent():with_desc("jump: Operate across syntax tree"),
 
 	-- Plugin suda.vim
 	["n|<A-s>"] = map_cu("SudaWrite"):with_silent():with_noremap():with_desc("editn: Save file using sudo"),

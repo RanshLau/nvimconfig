@@ -24,11 +24,11 @@ function mapping.lsp(buf)
     ["n|gto"] = map_callback(function()
       require("telescope").extensions.aerial.aerial()
     end):with_silent():with_buffer(buf):with_desc("lsp: Toggle outline in Telescope"),
-    ["n|[["] = map_cr("Lspsaga diagnostic_jump_prev"):with_silent():with_buffer(buf):with_desc("lsp: Prev diagnostic"),
-    ["n|]]"] = map_cr("Lspsaga diagnostic_jump_next"):with_silent():with_buffer(buf):with_desc("lsp: Next diagnostic"),
+    ["n|[d"] = map_cr("Lspsaga diagnostic_jump_prev"):with_silent():with_buffer(buf):with_desc("lsp: Prev diagnostic"),
+    ["n|]d"] = map_cr("Lspsaga diagnostic_jump_next"):with_silent():with_buffer(buf):with_desc("lsp: Next diagnostic"),
     ["n|<leader>lx"] = map_cr("Lspsaga show_line_diagnostics ++unfocus"):with_silent():with_buffer(buf):with_desc(
       "lsp: Line diagnostic"),
-    ["n|gs"] = map_callback(function()
+    ["n|<leader>lh"] = map_callback(function()
       vim.lsp.buf.signature_help()
     end):with_desc("lsp: Signature help"),
     ["n|gr"] = map_cr("Lspsaga rename"):with_silent():with_buffer(buf):with_desc("lsp: Rename in file range"),
@@ -42,8 +42,8 @@ function mapping.lsp(buf)
     ["n|gD"] = map_cr("Lspsaga goto_definition"):with_silent():with_buffer(buf):with_desc("lsp: Goto definition"),
     ["n|gh"] = map_cr("Glance references"):with_silent():with_buffer(buf):with_desc("lsp: Show reference"),
     ["n|gm"] = map_cr("Glance implementations"):with_silent():with_buffer(buf):with_desc("lsp: Show implementation"),
-    ["n|gci"] = map_cr("Lspsaga incoming_calls"):with_silent():with_buffer(buf):with_desc("lsp: Show incoming calls"),
-    ["n|gco"] = map_cr("Lspsaga outgoing_calls"):with_silent():with_buffer(buf):with_desc("lsp: Show outgoing calls")
+    ["n|<leader>lco"] = map_cr("Lspsaga incoming_calls"):with_silent():with_buffer(buf):with_desc("lsp: Show incoming calls"),
+    ["n|<leader>lci"] = map_cr("Lspsaga outgoing_calls"):with_silent():with_buffer(buf):with_desc("lsp: Show outgoing calls")
   }
   bind.nvim_load_mapping(map)
 
