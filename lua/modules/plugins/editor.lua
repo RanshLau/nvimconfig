@@ -175,7 +175,8 @@ return {
     -- optional, but required for fuzzy finder support
     dependencies = {
       'nvim-telescope/telescope-fzf-native.nvim'
-    }
+    },
+    opts = require("editor.dropbar").opts
   }
 }
 

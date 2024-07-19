@@ -255,6 +255,18 @@ function M.config()
     return string.format(" %s: %d ", indent_type, indent_size)
   end
 
+  local function git_changes_count_provider(type, sign)
+    return function()
+      local gitsigns = vim.b.gitsigns_status_dict
+
+      if (gitsigns and gitsigns[type]) then
+        return gitsigns[type] ~= 0 and fmt("%s%d ",sign, gitsigns[type]) or ""
+      else
+        return ""
+      end
+    end
+  end
+
   -- Create a table that contians every status line commonent
   local c = {
     vimode = {
@@ -311,10 +323,7 @@ function M.config()
       end
     },
     git_add = {
-      provider = function()
-        local gitsigns = vim.b.gitsigns_status_dict
-        return gitsigns.added ~= 0 and fmt("+%d ", gitsigns.added) or ""
-      end,
+      provider = git_changes_count_provider("added", "+"),
       hl = {
         fg = palette.bright_green,
         bg = palette.dark0,
@@ -325,10 +334,7 @@ function M.config()
       end
     },
     git_change = {
-      provider = function()
-        local gitsigns = vim.b.gitsigns_status_dict
-        return gitsigns.changed ~= 0 and fmt("~%d ", gitsigns.changed) or ""
-      end,
+      provider = git_changes_count_provider("changed", "~"),
       hl = {
         fg = palette.bright_yellow,
         bg = palette.dark0,
@@ -339,10 +345,7 @@ function M.config()
       end
     },
     git_remove = {
-      provider = function()
-        local gitsigns = vim.b.gitsigns_status_dict
-        return gitsigns.removed ~= 0 and fmt("-%d ", gitsigns.removed) or ""
-      end,
+      provider = git_changes_count_provider("removed", "-"),
       hl = {
         fg = palette.bright_red,
         bg = palette.dark0,
@@ -584,8 +587,7 @@ function M.config()
         "help"
       },
       buftypes = {
-        'terminal',
-        'nofile'
+        'terminal'
       }
     },
     disable = {
