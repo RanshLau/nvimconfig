@@ -14,7 +14,6 @@ return function()
 			},
 			initial_mode = "insert",
 			prompt_prefix = " " .. icons.ui.Telescope .. " ",
-			selection_caret = icons.ui.ChevronRight,
 			results_title = false,
 			layout_strategy = "horizontal",
 			path_display = { "absolute" },
