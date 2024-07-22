@@ -42,7 +42,7 @@ return {
       "CursorHold",
       "CursorHoldI"
     },
-    config = require("editor.flash")
+    config = require("editor.flash").config
   },
   {
     "numToStr/Comment.nvim",
@@ -71,16 +71,6 @@ return {
       "CursorHoldI"
     },
     config = require("editor.align")
-  },
-  {
-    "smoka7/hop.nvim",
-    lazy = true,
-    version = "*",
-    event = {
-      "CursorHold",
-      "CursorHoldI"
-    },
-    config = require("editor.hop")
   },
   {
     "tzachar/local-highlight.nvim",
@@ -147,9 +137,6 @@ return {
       --   "andymass/vim-matchup"
       -- },
       {
-        "mfussenegger/nvim-treehopper"
-      },
-      {
         "nvim-treesitter/nvim-treesitter-textobjects"
       },
       {
@@ -179,25 +166,3 @@ return {
     opts = require("editor.dropbar").opts
   }
 }
-
--- NOTE: `flash.nvim` is a powerful plugin that can be used as partial or complete replacements for:
---  > `hop.nvim`,
---  > `wilder.nvim`
---  > `nvim-treehopper`
--- Considering its steep learning curve as well as backward compatibility issues...
---  > We have no plan to remove the above plugins for the time being.
--- But as usual, you can always tweak the plugin to your liking.
-
-----------------------------------------------------------------------
---                  :treesitter related plugins                    --
-----------------------------------------------------------------------
-
--- "utilyre/barbecue.nvim", {
--- 	lazy = true,
--- 	event = { "CursorHold", "CursorHoldI" },
--- 	config = require("editor.barbecue"),
--- 	dependencies = {
--- 		{ "SmiteshP/nvim-navic" },
--- 		{ "nvim-tree/nvim-web-devicons" },
--- 	}
--- }

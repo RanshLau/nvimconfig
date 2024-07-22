@@ -35,22 +35,18 @@ return {
     },
     config = require("tool.sniprun")
   },
-  -- {
-  --   "akinsho/toggleterm.nvim",
-  --   lazy = true,
-  --   cmd = {
-  --     "ToggleTerm",
-  --     "ToggleTermSetName",
-  --     "ToggleTermToggleAll",
-  --     "ToggleTermSendVisualLines",
-  --     "ToggleTermSendCurrentLine",
-  --     "ToggleTermSendVisualSelection"
-  --   },
-  --   config = require("tool.toggleterm")
-  -- },
   {
-    "niuiic/terminal.nvim",
-    lazy = true
+    "akinsho/toggleterm.nvim",
+    lazy = true,
+    cmd = {
+      "ToggleTerm",
+      "ToggleTermSetName",
+      "ToggleTermToggleAll",
+      "ToggleTermSendVisualLines",
+      "ToggleTermSendCurrentLine",
+      "ToggleTermSendVisualSelection"
+    },
+    config = require("tool.toggleterm")
   },
   {
     "folke/trouble.nvim",
