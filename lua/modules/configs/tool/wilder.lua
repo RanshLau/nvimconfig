@@ -26,7 +26,7 @@ return function()
   })
 
   local popupmenu_renderer = wilder.popupmenu_renderer(wilder.popupmenu_border_theme({
-    border = "single",
+    border = nil,
     highlights = {
       default = "Pmenu",
       border = "PmenuBorder", -- highlight to use for the border

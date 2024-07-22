@@ -123,8 +123,16 @@ local plug_map = {
     })
   end):with_silent():with_noremap():with_desc("editn: search & replace current word (file)"),
 
-  -- Plugin suda.vim
-  ["n|<A-s>"] = map_cu("SudaWrite"):with_silent():with_noremap():with_desc("editn: Save file using sudo")
+  -- Plugin dropbar.nvim
+  ["n|<leader>dp"] = map_callback(function()
+    require("dropbar.api").pick()
+  end):with_silent():with_noremap():with_desc("dropbar: pick winbar item"),
+  ["n|gu"] = map_callback(function()
+    require("dropbar.api").goto_context_start()
+  end):with_silent():with_noremap():with_desc("dropbar: up to context start"),
+  ["n|gn"] = map_callback(function()
+    require("dropbar.api").select_next_context()
+  end):with_silent():with_noremap():with_desc("dropbar: goto next context start"),
 }
 
 bind.nvim_load_mapping(plug_map)

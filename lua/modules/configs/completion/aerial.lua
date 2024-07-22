@@ -1,7 +1,7 @@
 return function()
 	require("modules.utils").load_plugin("aerial", {
 		lazy_load = false,
-		close_on_select = true,
+		close_on_select = false,
 		highlight_on_jump = false,
 		disable_max_lines = 8500,
 		disable_max_size = 1000000,
