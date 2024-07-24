@@ -1,5 +1,14 @@
 local M = {}
 
+function M.init()
+  vim.cmd [[
+  augroup feline_refresh
+    autocmd!
+    autocmd CursorHold,CursorHoldI,DiagnosticChanged * lua require('feline').reset_highlights()
+  augroup END
+  ]]
+end
+
 function M.config()
   local fmt = string.format
   local palette = require("gruvbox").palette
@@ -260,7 +269,7 @@ function M.config()
       local gitsigns = vim.b.gitsigns_status_dict
 
       if (gitsigns and gitsigns[type]) then
-        return gitsigns[type] ~= 0 and fmt("%s%d ",sign, gitsigns[type]) or ""
+        return gitsigns[type] ~= 0 and fmt("%s%d ", sign, gitsigns[type]) or ""
       else
         return ""
       end
@@ -450,6 +459,38 @@ function M.config()
       }
 
     },
+    -- lsp_clients = {
+    --   provider = function()
+    --     local buf_ft = vim.api.nvim_get_option_value("filetype", {
+    --       scope = "local"
+    --     })
+    --     local clients = vim.lsp.get_active_clients()
+    --     local lsp_lists = {}
+    --     local available_servers = {}
+
+    --     for _, client in ipairs(clients) do
+    --       local filetypes = client.config.filetypes
+    --       local client_name = client.name
+    --       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+    --         -- Avoid adding servers that already exists.
+    --         if not lsp_lists[client_name] then
+    --           lsp_lists[client_name] = true
+    --           table.insert(available_servers, client_name)
+    --         end
+    --       end
+    --     end
+
+    --     if (next(available_servers)) then
+    --       return string.format(" LSP: %s ", table.concat(available_servers, ", "))
+    --     end
+
+    --     return ""
+    --   end,
+    --   hl = {
+    --     fg = palette.bright_green,
+    --     bg = palette.dark1
+    --   }
+    -- },
     lsp_error = {
       provider = function()
         return get_diag("ERROR")
@@ -545,6 +586,7 @@ function M.config()
       c.git_remove
     },
     { -- right
+      -- c.lsp_clients,
       c.lsp_error,
       c.lsp_warn,
       c.lsp_hint,

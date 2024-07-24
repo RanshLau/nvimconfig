@@ -34,16 +34,6 @@ return {
     event = "BufWinEnter",
     config = require("ui.alpha")
   },
-  -- {
-  --   "akinsho/bufferline.nvim",
-  --   lazy = true,
-  --   event = {
-  --     "BufReadPost",
-  --     "BufAdd",
-  --     "BufNewFile"
-  --   },
-  --   config = require("ui.bufferline")
-  -- },
   {
     "nanozuki/tabby.nvim",
     lazy = true,
@@ -89,6 +79,7 @@ return {
       "BufAdd",
       "BufNewFile"
     },
+    init = require("ui.feline").init,
     config = require("ui.feline").config
   },
   {

@@ -22,7 +22,7 @@ return {
         "Jint-lzxy/lsp_signature.nvim",
         config = require("completion.lsp-signature")
       }
-    },
+    }
   },
   {
     "williamboman/mason.nvim",
