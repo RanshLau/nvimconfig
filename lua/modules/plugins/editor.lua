@@ -72,23 +72,23 @@ return {
     },
     config = require("editor.align")
   },
-  {
-    "tzachar/local-highlight.nvim",
-    lazy = true,
-    event = {
-      "CursorHold",
-      "CursorHoldI"
-    },
-    config = require("editor.local-highlight")
-  },
-  {
-    "romainl/vim-cool",
-    lazy = true,
-    event = {
-      "CursorMoved",
-      "InsertEnter"
-    }
-  },
+  -- {
+  --   "tzachar/local-highlight.nvim",
+  --   lazy = true,
+  --   event = {
+  --     "CursorHold",
+  --     "CursorHoldI"
+  --   },
+  --   config = require("editor.local-highlight")
+  -- },
+  -- {
+  --   "romainl/vim-cool",
+  --   lazy = true,
+  --   event = {
+  --     "CursorMoved",
+  --     "InsertEnter"
+  --   }
+  -- },
   {
 
     "lambdalisue/suda.vim",
@@ -99,15 +99,15 @@ return {
     },
     init = require("editor.suda")
   },
-  {
-    "tpope/vim-sleuth",
-    lazy = true,
-    event = {
-      "BufNewFile",
-      "BufReadPost",
-      "BufFilePost"
-    }
-  },
+  -- {
+  --   "tpope/vim-sleuth",
+  --   lazy = true,
+  --   event = {
+  --     "BufNewFile",
+  --     "BufReadPost",
+  --     "BufFilePost"
+  --   }
+  -- },
   {
     "nvim-pack/nvim-spectre",
     lazy = true,
@@ -159,7 +159,6 @@ return {
   },
   {
     'Bekaboo/dropbar.nvim',
-    -- optional, but required for fuzzy finder support
     dependencies = {
       'nvim-telescope/telescope-fzf-native.nvim'
     },
