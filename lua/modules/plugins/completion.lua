@@ -90,7 +90,7 @@ return {
     "hrsh7th/nvim-cmp",
     lazy = true,
     event = "InsertEnter",
-    config = require("completion.cmp"),
+    config = require("completion.cmp").config,
     dependencies = {
       {
         "L3MON4D3/LuaSnip",

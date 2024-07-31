@@ -139,6 +139,14 @@ return {
       })
     end
   },
+  {
+    "echasnovski/mini.animate",
+    config = function()
+      if (not vim.g.neovide) then
+        require('mini.animate').setup({})
+      end
+    end
+  }
   -- {
   --   "b0o/incline.nvim",
   --   lazy = true,

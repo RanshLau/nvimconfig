@@ -16,6 +16,4 @@ return function()
     define_autocmd = true, -- boolean: if true, defines autocmd at `ModeChanged` to switch fcitx5 mode.
     log = "warn" -- string: log level (default: warn)
   })
-
-  vim.cmd [[inoremap <M-Tab> <Cmd>lua require'fcitx5'.toggle()<CR>]]
 end

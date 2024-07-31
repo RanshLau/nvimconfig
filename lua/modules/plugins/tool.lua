@@ -158,21 +158,34 @@ return {
         "jay-babu/mason-nvim-dap.nvim"
       }
     }
-  },
-  {
-    "pysan3/fcitx5.nvim",
-    lazy = true,
-    event = "BufReadPost",
-    cond = vim.fn.executable("fcitx5-remote") == 1,
-    config = require("tool.fcitx5")
   }
+  -- {
+  --   "liubianshi/cmp-lsp-rimels",
+  --   dependencies = {
+  --     'neovim/nvim-lspconfig',
+  --     'hrsh7th/nvim-cmp',
+  --     'hrsh7th/cmp-nvim-lsp'
+  --   },
+  --   config = function()
+  --     require('rimels').setup({
+  --       keys = {
+  --         start = ";f",
+  --         stop = ";;",
+  --         esc = "<esc>"
+  --       },
+  --       cmd = {
+  --         "D:/librime/dist/lib/rime_ls.exe"
+  --       },
+  --       rime_user_dir = "D:/RimeLs/Rime",
+  --       shared_data_dir = "D:/RimeLs/shared/"
+  --     })
+  --   end
+  -- }
+  -- {
+  --   "pysan3/fcitx5.nvim",
+  --   lazy = true,
+  --   event = "BufReadPost",
+  --   cond = vim.fn.executable("fcitx5-remote") == 1,
+  --   config = require("tool.fcitx5")
+  -- }
 }
-
--- only for fcitx5 user who uses non-English language during coding
--- tool["pysan3/fcitx5.nvim"] = {
--- 	lazy = true,
--- 	event = "BufReadPost",
--- 	cond = vim.fn.executable("fcitx5-remote") == 1,
--- 	config = require("tool.fcitx5"),
--- }
-

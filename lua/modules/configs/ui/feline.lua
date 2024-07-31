@@ -635,6 +635,7 @@ function M.config()
     disable = {
       filetypes = {
         "dashboard",
+        "alpha",
         "startify"
       }
     }
